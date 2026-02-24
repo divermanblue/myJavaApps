@@ -74,11 +74,11 @@ public class JTextPaneDemo {
                 
                 // Count down from 3
                 doc.insertString(doc.getLength(), "\n3......" , normal);
-                Thread.sleep(20000);
+                Thread.sleep(5000);
                 doc.insertString(doc.getLength(), "2.......", normal);
-                Thread.sleep(20000);
+                Thread.sleep(5000);
                 doc.insertString(doc.getLength(), "1.......", normal);
-                Thread.sleep(20000);
+                Thread.sleep(5000);
 
                 doc.insertString(doc.getLength(), "\nAnswer = "+ answer, normal);
 
