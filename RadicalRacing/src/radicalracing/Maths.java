@@ -1,9 +1,9 @@
 // define the package
 package radicalracing;
 
+import java.awt.*;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import java.awt.*;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
@@ -23,15 +23,6 @@ public class Maths {
         // Create a variable to hold the answer to the calculation
         double answer;
         
-        // This section creates a disappearing pop up window
-        final JDialog dialog = new JDialog();
-        dialog.setModal(false);
-        dialog.setUndecorated(false);
-        
-        dialog.pack();
-        dialog.setLocationRelativeTo(null);
-        dialog.setVisible(true);
-
         // Use the random number to find the operator and calculate the answer
         switch (sign) {
             case 0:
@@ -54,24 +45,55 @@ public class Maths {
                 answer = 0;
         }
         // Show the calculation in a dialog box
-        JOptionPane.showMessageDialog(null, "The calculation is: " + num1 + " " + myObj.operator + " " + num2);
+        // This section creates a disappearing pop up window
+        final JDialog dialog1 = new JDialog();
+        dialog1.setModal(false);
+        dialog1.setUndecorated(false);
+            
+        JLabel label = new JLabel("The calculation is: " + num1 + " " + myObj.operator + " " + num2, SwingConstants.CENTER);
+        label.setPreferredSize(new Dimension(300, 100));
+        dialog1.getContentPane().add(label);
+
+        dialog1.pack();
+        dialog1.setLocationRelativeTo(null);
+        dialog1.setVisible(true);
+        
+        // Wait for 1 second (2000 ms)    
+        try {
+            Thread.sleep(1000);
+        } 
+        catch (InterruptedException e) {
+           //  e.printStackTrace();
+        }
+        // Close dialog after sleep
+        dialog1.dispose();
+
         //Countdown from 3 to 1 with a 1 second pause in between
         for (int i = 3; i > 0; i--) {
             // System.out.println(i);
-            JLabel label = new JLabel("You have "+Integer.toString(i)+" seconds left", SwingConstants.CENTER);
-            label.setPreferredSize(new Dimension(300, 100));
-            dialog.getContentPane().add(label);
+            // This section creates a disappearing pop up window
+            final JDialog dialog2 = new JDialog();
+            dialog2.setModal(false);
+            dialog2.setUndecorated(false);
+            
+            JLabel label1 = new JLabel("You have "+Integer.toString(i)+" seconds left", SwingConstants.CENTER);
+            label1.setPreferredSize(new Dimension(300, 100));
+            dialog2.getContentPane().add(label1);
 
-             // Wait for 2 seconds (2000 ms)    
+            dialog2.pack();
+            dialog2.setLocationRelativeTo(null);
+            dialog2.setVisible(true);
+        
+             // Wait for 1 second (2000 ms)    
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1000);
             } 
             catch (InterruptedException e) {
-                e.printStackTrace();
+               //  e.printStackTrace();
             }
+             // Close dialog after sleep
+            dialog2.dispose();
         }
-        // Close dialog after sleep
-        dialog.dispose();
         // Show the answer
         JOptionPane.showMessageDialog(null, "The answer is: " + answer);
     }
