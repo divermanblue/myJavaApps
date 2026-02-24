@@ -15,13 +15,15 @@ public class Guess
         if (input.equals("Evil Genius"))
         {
             // User got it right so tell him
-            System.out.println("You guessed correctly.");
+            // System.out.println("You guessed correctly.");
+            JOptionPane.showMessageDialog(null, "You guessed correctly.");
         }
         // If the user gets it wrong
         else
         {
             // Tell him
-            System.out.println("Wrong.  Try again.");
+            // System.out.println("Wrong.  Try again.");
+            JOptionPane.showMessageDialog(null, "Wrong.  Try again.");
         }
     }
 }
