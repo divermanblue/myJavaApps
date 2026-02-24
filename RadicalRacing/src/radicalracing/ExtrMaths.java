@@ -111,7 +111,8 @@ public class ExtrMaths {
             if (again.equalsIgnoreCase("y")) {
                 cont = true;
             }
-        } while (cont); // Keep looping while cont is false
+        } 
+        while (cont); // Keep looping while cont is false
     }
 }
 
