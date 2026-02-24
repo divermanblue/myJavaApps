@@ -9,7 +9,7 @@ public class Guess
     {
         // This string will hold the users input
         String input;
-        //Get theinput strig
+        //Get the input string
         input = JOptionPane.showInputDialog("Enter the secret message.");
         // Test for correctness
         if (input.equals("Evil Genius"))
