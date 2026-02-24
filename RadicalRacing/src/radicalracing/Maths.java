@@ -43,6 +43,11 @@ public class Maths {
         }
         // Show the calculation in a dialog box
         JOptionPane.showMessageDialog(null, "The calculation is: " + num1 + " " + myObj.operator + " " + num2);
+        //Countdown from 3 to 1 with a 1 second pause in between
+        for (int i = 3; i > 0; i--) {
+            JOptionPane.showMessageDialog(null, i);
+            Thread.sleep(1000);
+        }
         JOptionPane.showMessageDialog(null, "The answer is: " + answer);
     }
 }
