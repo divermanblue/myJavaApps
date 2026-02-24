@@ -11,9 +11,10 @@ public class Dialog {
         dialog.setModal(false);
         dialog.setUndecorated(false);
 
-        JLabel label = new JLabel("Loading...", SwingConstants.CENTER);
+        JLabel label = new JLabel("Hello "+"World", SwingConstants.CENTER);
         label.setPreferredSize(new Dimension(300, 100));
         dialog.getContentPane().add(label);
+
 
         dialog.pack();
         dialog.setLocationRelativeTo(null);
@@ -22,11 +23,11 @@ public class Dialog {
         // Wait for 2 seconds (2000 ms)
         try {
             Thread.sleep(2000);
-        } catch (InterruptedException e) {
+        } 
+        catch (InterruptedException e) {
             e.printStackTrace();
-            }
-
-// Close dialog after sleep
+        }
+        // Close dialog after sleep
         dialog.dispose();
     }
 }

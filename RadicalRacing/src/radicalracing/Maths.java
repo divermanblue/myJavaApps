@@ -1,8 +1,11 @@
 // define the package
 package radicalracing;
 
-// First allow some input
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import java.awt.*;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 
 // Create the class called Maths
 public class Maths {
@@ -20,6 +23,15 @@ public class Maths {
         // Create a variable to hold the answer to the calculation
         double answer;
         
+        // This section creates a disappearing pop up window
+        final JDialog dialog = new JDialog();
+        dialog.setModal(false);
+        dialog.setUndecorated(false);
+        
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+
         // Use the random number to find the operator and calculate the answer
         switch (sign) {
             case 0:
@@ -45,9 +57,23 @@ public class Maths {
         JOptionPane.showMessageDialog(null, "The calculation is: " + num1 + " " + myObj.operator + " " + num2);
         //Countdown from 3 to 1 with a 1 second pause in between
         for (int i = 3; i > 0; i--) {
-            JOptionPane.showMessageDialog(null, i);
-            Thread.sleep(1000);
+            // System.out.println(i);
+            JLabel label = new JLabel("You have "+Integer.toString(i)+" seconds left", SwingConstants.CENTER);
+            label.setPreferredSize(new Dimension(300, 100));
+            dialog.getContentPane().add(label);
+
+             // Wait for 2 seconds (2000 ms)    
+            try {
+                Thread.sleep(2000);
+            } 
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+        // Close dialog after sleep
+        dialog.dispose();
+        // Show the answer
         JOptionPane.showMessageDialog(null, "The answer is: " + answer);
     }
 }
+
