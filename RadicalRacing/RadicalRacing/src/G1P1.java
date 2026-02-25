@@ -65,7 +65,6 @@ public class G1P1 extends JFrame {
     public G1P1() {
         // The following creates the JFrame
         super("Radical Racing");
-
         // Set the title of the window
         setTitle("Radical Racing");
         // Set the default close operation
@@ -74,6 +73,8 @@ public class G1P1 extends JFrame {
         setSize(400, 300);
         // Set the layout of the window
         setLayout(new BorderLayout());
+        // Make sure the window is maximised
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         // Make the window visible
         setVisible(true);
     }
