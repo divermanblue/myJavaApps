@@ -1,5 +1,7 @@
 // Import statements
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.*;
 
 // This creates the class using JFrames
@@ -7,6 +9,12 @@ public class G1P1 extends JFrame {
     // This is the constructor for the class
     final int Width = 900, Height = 650;
     double p1Speed = 0.5, p2Speed = 0.5;
+    // These are integers that represent directions
+    int Up=0, Right=1, Down=2, Left=3;
+
+    // these integers will keep track of the players direction (default is up)
+    int p1Dir = Up, p2Dir = Up;
+
     // Here are all the rectangles that will be drawn
     Rectangle left = new Rectangle(0, 0, (int) (Width/9), Height);
     Rectangle top = new Rectangle(0,0,Width,Height/9);
@@ -128,17 +136,35 @@ public class G1P1 extends JFrame {
         g.fill3DRect(p2.x,p2.y,p2.width,p2.height, true);
     }
 // This moves player 1s car
-    private class Move1 extends Thread {
+    private class Move1 extends Thread implements KeyListener{
         public void run() {
+            // This makes the keylistener wake up
+                addKeyListener(this);
             // This is an infinity loop so the process repeats
             while (true) {
                 // We put the code in a try block so it exits if there is an error
                 try {
                     // Refresh the screen
                     repaint();
+                    // Check if the car hits the outside wall.  If it does reduce its speed to -4
+                    if(p1.intersects(left) || p1.intersects(top) || p1.intersects(right) || p1.intersects(bottom)
+                    || p1.intersects(obs1) || p1.intersects(obs2) || p1.intersects(obs3) || p1.intersects(obs4) 
+                    || p1.intersects(obs5) || p1.intersects(p2)){
+                        p1Speed = -4;
+                    }
+                    // Check if the car hits the centre.  If it does reduce its speed to -2.5
+                    if(p1.intersects(center)){
+                        p1Speed = -2.5;
+                    }
                     // Increase the speed a bit
                     if(p1Speed<=5) p1Speed+=0.02;
                     p1.y-=p1Speed;
+                    //  These will move the car based on the direction of travel
+                    if(p1Dir == Up) p1.y-=(int)p1Speed;
+                    if(p1Dir == Right) p1.x+=(int)p1Speed;
+                    if(p1Dir == Down) p1.y+=(int)p1Speed;
+                    if(p1Dir == Left) p1.x-=(int)p1Speed;
+                    
                     // Delay the refresh a litt
                     Thread.sleep(75);
                 }
@@ -147,10 +173,22 @@ public class G1P1 extends JFrame {
                     break;
                 }
             }
-        }                
+        } 
+        // We also implement this method from KeyListener to change the direction of the car when the keys are pressed  
+        public void keyPressed(KeyEvent event) {
+        }          
+        public void keyReleased(KeyEvent event) {
+        }
+        public void keyTyped(KeyEvent event) {
+            // This changes the direction of the car when the keys are pressed
+            if(event.getKeyChar() == 'w') p1Dir = Up;
+            if(event.getKeyChar() == 'd') p1Dir = Right;
+            if(event.getKeyChar() == 's') p1Dir = Down;
+            if(event.getKeyChar() == 'a') p1Dir = Left;
+        }
     }
 // This moves player 2s car
-    private class Move2 extends Thread {
+    private class Move2 extends Thread implements KeyListener{
         public void run() {
             // This is an infinity loop so the process repeats
             while (true) {
@@ -158,9 +196,24 @@ public class G1P1 extends JFrame {
                 try {
                     // Refresh the screen
                     repaint();
+                    // Check if the car hits the outside wall.  If it does reduce its speed to -4
+                    if(p2.intersects(left) || p2.intersects(top) || p2.intersects(right) || p2.intersects(bottom)
+                    || p2.intersects(obs1) || p2.intersects(obs2) || p2.intersects(obs3) || p2.intersects(obs4) 
+                    || p2.intersects(obs5) || p2.intersects(p1)){
+                        p2Speed = -4;
+                    }
+                    // Check if the car hits the centre.  If it does reduce its speed to -2.5
+                    if(p2.intersects(center)){
+                        p2Speed = -2.5;
+                    }
                     // Increase the speed a bit
                     if(p2Speed<=5) p2Speed+=0.02;
                     p2.y-=p2Speed;
+                    //  These will move the car based on the direction of travel
+                    if(p2Dir == Up) p2.y-=(int)p2Speed;
+                    if(p2Dir == Right) p2.x+=(int)p2Speed;
+                    if(p2Dir == Down) p2.y+=(int)p2Speed;
+                    if(p2Dir == Left) p2.x-=(int)p2Speed;
                     // Delay the refresh a litt
                     Thread.sleep(75);
                 }
@@ -170,9 +223,24 @@ public class G1P1 extends JFrame {
                 }
             }
         }                
+    
+     // We also implement this method from KeyListener to change the direction of the car when the keys are pressed  
+        public void keyPressed(KeyEvent event) {
+        }          
+        public void keyReleased(KeyEvent event) {
+        }
+        public void keyTyped(KeyEvent event) {
+            // This changes the direction of the car when the keys are pressed
+            if(event.getKeyChar() == 'i') p2Dir = Up;
+            if(event.getKeyChar() == 'l') p2Dir = Right;
+            if(event.getKeyChar() == 'k') p2Dir = Down;
+            if(event.getKeyChar() == 'j') p2Dir = Left;
+        }
     }
     // This starts the program by calling the constructor
     public static void main(String[] args) {
         new G1P1();
     }
 }
+
+
