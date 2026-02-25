@@ -11,6 +11,8 @@ public class Main
     // Create the main method
     public static void main (String[] args) throws Exception
     {
+        // Create a boolean to check if the password is correct
+        boolean correct = false;
         //Get the input string
         String userInput = JOptionPane.showInputDialog("1 To set password,\n"+"2 To unlock the message");
         // This is the file that will be set and opened
@@ -34,22 +36,26 @@ public class Main
         }
         else
         {
-            // Read the password from the file
-            FileReader fr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fr);
-            // This is the password in the file
-            String Password = br.readLine();
+            do {         
+                // Read the password from the file
+                FileReader fr = new FileReader(file);
+                BufferedReader br = new BufferedReader(fr);
+                // This is the password in the file
+                String Password = br.readLine();
 
-            // Get the users guess at the password
-            String userPassword = JOptionPane.showInputDialog("Enter the password to unlock the message.");
+                // Get the users guess at the password
+                String userPassword = JOptionPane.showInputDialog("Enter the password to unlock the message.");
 
-            // Check if the password is correct
-            if (userPassword.equals(Password)) {
-                JOptionPane.showMessageDialog(null, "You guessed correctly!");
-            } 
-            else { 
-                JOptionPane.showMessageDialog(null, "Wrong. Try again."); 
-            }              
+                // Check if the password is correct
+                if (userPassword.equals(Password)) {
+                    JOptionPane.showMessageDialog(null, "You guessed correctly!");
+                    correct = true;
+                } 
+                else { 
+                    JOptionPane.showMessageDialog(null, "Wrong. Try again."); 
+                }              
+            }
+         while (!correct);
         }
     }
 }
