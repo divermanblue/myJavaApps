@@ -6,6 +6,7 @@ import javax.swing.*;
 public class G1P1 extends JFrame {  
     // This is the constructor for the class
     final int Width = 900, Height = 650;
+    double p1Speed = 0.5, p2Speed = 0.5;
     // Here are all the rectangles that will be drawn
     Rectangle left = new Rectangle(0, 0, (int) (Width/9), Height);
     Rectangle top = new Rectangle(0,0,Width,Height/9);
@@ -60,7 +61,18 @@ public class G1P1 extends JFrame {
         (int) (Height/2),
         (int) (((Width/9)*1.5)/2),
         (int) (Height/140));
-
+    // This is player 1s car (inner)
+    Rectangle p1 = new Rectangle(
+        (int) (Width/9),
+        (int) (Height/2),
+        (int) (Width/30),
+        (int) (Width/30));
+    // This is player 2s car (outer)
+    Rectangle p2 = new Rectangle(   
+        (int) (Width/9)+(int) (((Width/9)*1.5)/2),
+        (int) (Height/2)+(Height/10),
+        (int) (Width/30),
+        (int) (Width/30));
 // The constructor
     public G1P1() {
         // The following creates the JFrame
@@ -77,12 +89,17 @@ public class G1P1 extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         // Make the window visible
         setVisible(true);
+        // Start the inner class which will work on its own because it is a thread
+        Move1 move1 = new Move1();
+        Move2 move2 = new Move2();
+        move1.start();
+        move2.start(); 
     }
     // This will draw the cars
     public void paint(Graphics g) {
         super.paint(g);
-        // Set the color to red and draw the left rectangle
-        g.setColor(Color.RED);
+        // Set the color to grey and draw the rectangle
+        g.setColor(Color.DARK_GRAY);
         g.fillRect(0,0, Width, Height);
 
         // Set the color to green
@@ -103,6 +120,56 @@ public class G1P1 extends JFrame {
         g.fillRect(startOuter.x, startOuter.y, startOuter.width, startOuter.height);
         g.setColor(Color.YELLOW);
         g.fillRect(finish.x, finish.y, finish.width, finish.height);
+        // Draw the cars
+        // Player 1 is blue and player 2 is red
+        g.setColor(Color.BLUE);
+        g.fill3DRect(p1.x,p1.y,p1.width,p1.height, true);
+        g.setColor(Color.RED);
+        g.fill3DRect(p2.x,p2.y,p2.width,p2.height, true);
+    }
+// This moves player 1s car
+    private class Move1 extends Thread {
+        public void run() {
+            // This is an infinity loop so the process repeats
+            while (true) {
+                // We put the code in a try block so it exits if there is an error
+                try {
+                    // Refresh the screen
+                    repaint();
+                    // Increase the speed a bit
+                    if(p1Speed<=5) p1Speed+=0.02;
+                    p1.y-=p1Speed;
+                    // Delay the refresh a litt
+                    Thread.sleep(75);
+                }
+                catch (Exception e) {
+                    // If there is an error, exit the loop
+                    break;
+                }
+            }
+        }                
+    }
+// This moves player 2s car
+    private class Move2 extends Thread {
+        public void run() {
+            // This is an infinity loop so the process repeats
+            while (true) {
+                // We put the code in a try block so it exits if there is an error
+                try {
+                    // Refresh the screen
+                    repaint();
+                    // Increase the speed a bit
+                    if(p2Speed<=5) p2Speed+=0.02;
+                    p2.y-=p2Speed;
+                    // Delay the refresh a litt
+                    Thread.sleep(75);
+                }
+                catch (Exception e) {
+                    // If there is an error, exit the loop
+                    break;
+                }
+            }
+        }                
     }
     // This starts the program by calling the constructor
     public static void main(String[] args) {
