@@ -3,6 +3,8 @@ package CodeCrack;
 
 // Allow for input setting
 import java.io.*;
+import java.nio.file.Files;
+
 import javax.swing.*;
 
 // Create main class
@@ -36,6 +38,12 @@ public class Main
         }
         else
         {
+            // Check wheter the file exists
+                boolean exists = Files.exists(file.toPath());
+                if (!exists) {
+                    JOptionPane.showMessageDialog(null, "No password set. Please set a password first.");
+                    return;
+                }
             do {         
                 // Read the password from the file
                 FileReader fr = new FileReader(file);
